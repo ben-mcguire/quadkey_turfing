@@ -16,10 +16,10 @@ CREATE TABLE project.schema.my_quadkey_universe AS
         FROM base
         LEFT JOIN (
             SELECT id
-                , LEFT(quadkey,*/Smallest quadkey (i.e., deepest zoom level) desired/*) quadkey
+                , LEFT(quadkey,/*Smallest quadkey (i.e., deepest zoom level) desired*/) quadkey
             FROM project.schema.person_quadkeys 
         ) quadkeys ON base.id = quadkeys.id
-        WHERE */Insert relevant universe restrictions here (e.g., scores, registration status, voting history, survey question/*
+        WHERE /*Insert relevant universe restrictions here (e.g., scores, registration status, voting history, survey question*/
     
     -- For the purposes of this example code, we will imagine that we want to have quadkey length nine as our largest turf size,
     -- and quadkey 14 as the smallest possible. The useful level of granularity for your project depends on your own local universe
@@ -29,7 +29,7 @@ CREATE TABLE project.schema.my_quadkey_universe AS
     -- each quadkey level, building out a separate listing for each level.
     
     , qk0910 AS (
-        SELECT */Whatever geography level is relevant as an organizing principle (e.g., county, state house district)/* geo
+        SELECT /*Whatever geography level is relevant as an organizing principle (e.g., county, state house district)*/ geo
             , LEFT(quadkey,9) AS big 
             , LEFT(quadkey,10) AS small
             , COUNT(DISTINCT id) ct
@@ -187,8 +187,8 @@ CREATE TABLE project.schema.alternative_quadkeys AS
             
             WHERE primary.geo = secondary.geo
             AND primary.id != secondary.id
-            AND secondary.turf_count_one >= */Only reassign to turfs that exceed a certain size threshold (i.e., don't just combine very small turfs)/*
-            AND secondary.turf_count_one <= */Only reassign to turfs that aren't already too crowded (i.e., where adding more would make the turf unworkable)/*
+            AND secondary.turf_count_one >= /*Only reassign to turfs that exceed a certain size threshold (i.e., don't just combine very small turfs)*/
+            AND secondary.turf_count_one <= /*Only reassign to turfs that aren't already too crowded (i.e., where adding more would make the turf unworkable)*/
         
         ) WHERE dist_meters = 1
     )
@@ -199,7 +199,7 @@ CREATE TABLE project.schema.alternative_quadkeys AS
     , conversion AS (
         SELECT id
             , geo
-            , CASE WHEN infra.turf_count_one < */Pick a level at which all ids in a turf will be reassigned to their closest neighbor/*
+            , CASE WHEN infra.turf_count_one < /*Pick a level at which all ids in a turf will be reassigned to their closest neighbor*/
                 THEN distance.secondary_quadkey
                 ELSE cure_canvass_universe.quadkey_size_flexibility END AS alternative_quadkey
         FROM project.schema.my_quadkey_universe
