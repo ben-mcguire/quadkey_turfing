@@ -141,7 +141,10 @@ CREATE TABLE project.schema.alternative_quadkeys AS
         GROUP BY 1,2
     )
     
-    -- To pick the best neighbor for each small
+    -- To pick the best neighbor for each small turf, all we need to do is get the distance to relevant
+    -- other points, and set a row numnber partition ranked by distance. Thanks to the geo functions now 
+    -- available in a lot of SQL databases, this is straightforward - for databases without these functions
+    -- built in, a bit of geometry gets you there quickly as well.
     
     , distance AS (
         SELECT primary, secondary_quadkey
