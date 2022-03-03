@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS project.schema.my_quadkey_universe;
 CREATE TABLE project.schema.my_quadkey_universe AS 
--- Geography for Cure Canvassing
+-- Geography for Canvassing
 
     WITH base AS (
         SELECT id
@@ -204,11 +204,11 @@ CREATE TABLE project.schema.alternative_quadkeys AS
             , geo
             , CASE WHEN infra.turf_count_one < /*Pick a level at which all ids in a turf will be reassigned to their closest neighbor*/
                 THEN distance.secondary_quadkey
-                ELSE cure_canvass_universe.quadkey_size_flexibility END AS alternative_quadkey
+                ELSE my_quadkey_universe.quadkey_size_flexibility END AS alternative_quadkey
         FROM project.schema.my_quadkey_universe
-        LEFT JOIN infra ON cure_canvass_universe.quadkey_size_flexibility = infra.quadkey_size_flexibility 
-        AND cure_canvass_universe.geo = infra.geo
-        LEFT JOIN distance ON cure_canvass_universe.id = distance.primary
+        LEFT JOIN infra ON my_quadkey_universe.quadkey_size_flexibility = infra.quadkey_size_flexibility 
+        AND my_quadkey_universe.geo = infra.geo
+        LEFT JOIN distance ON my_quadkey_universe.id = distance.primary
     )
     
     SELECT base.id
@@ -256,3 +256,4 @@ CREATE TABLE project.schema.alternative_list_number AS
     AND alt.geo = alt_infra.geo
     
 ;
+
