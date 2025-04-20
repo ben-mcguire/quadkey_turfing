@@ -28,7 +28,7 @@ As an example of how quadkeys can be used to generate flexible and automated tur
 
 If we imagined that we wanted to send out canvassers to restaurants to ask them to put a sign for our candidate in their front window, we might decide that we want some arbitrary number of restaurants per turf — for the purpose of this visual, 10–20 addresses might be our target density.
 
-
+![](nyc_zoom_5.gif)
 
 At zoom level 8 — that is, a quadkey that is 8 characters long — we have a single square that covers all of New York City. Adding one more character and cutting each square into four quadrants cuts to something turf-sized as we reach 15 to 18 characters, but we can also see that at that length, we have started to create lots of scattered turfs that are too small for our desired program. To simplify the problem, we can think about a set of locations in a single grid square and what we would get if we ‘zoomed’ in by having the quadkeys be one and then two characters longer.
 
